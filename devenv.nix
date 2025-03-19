@@ -10,14 +10,7 @@
 
   packages = [ ];
   dotenv.enable = true;
-  services.couchdb = {
-    enable = true;
-    settings = {
-      admins = {
-        kamil = config.env.pwd;
-      };
-    };
-  };
+  services.couchdb.enable = true;
 
   scripts.greet.exec = ''
     echo initializing
