@@ -28,3 +28,5 @@ until (curl -X PUT "${host}:${port}/_node/couchdb@${host}/_config/chttpd/max_htt
 until (curl -X PUT "${host}:${port}/_node/couchdb@${host}/_config/couchdb/max_document_size" -H "Content-Type: application/json" -d '"50000000"' --user "${username}:${password}"); do sleep 5; done
 until (curl -X PUT "${host}:${port}/_node/couchdb@${host}/_config/cors/credentials" -H "Content-Type: application/json" -d '"true"' --user "${username}:${password}"); do sleep 5; done
 until (curl -X PUT "${host}:${port}/_node/couchdb@${host}/_config/cors/origins" -H "Content-Type: application/json" -d '"app://obsidian.md,capacitor://localhost,http://localhost"' --user "${username}:${password}"); do sleep 5; done
+
+echo "CouchDB initialized successfully"
