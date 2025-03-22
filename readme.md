@@ -1,42 +1,42 @@
-# Self-hosted `obsidian-livesync` guide
+# Installation guide for self-hosted CouchDB instance used by `obsidian-livesync` 👩‍💻
 
-This project is a guide and sample config for running local, _dev_, self-hosted instance of couchdb, that can be used by [obsidian-livesync plugin](https://github.com/vrtmrz/obsidian-livesync). It uses [devenv](https://devenv.sh/), so the assumption is that you already have it installed.
+This project is a guide and sample config for running local, **dev**, self-hosted instance of a CouchDB, that can be used by [obsidian-livesync plugin](https://github.com/vrtmrz/obsidian-livesync). It's based on [devenv](https://devenv.sh/), so the assumption is that it is already installed.
 
-### `Devenv` setup
+### CouchDB setup 🔧
 
-Run
+Run:
 
 ```sh
 mv template.env .env
 ```
 
-and edit values in `.env`.
+and edit values in `.env` as needed.
 
-Then run
+Then run:
 
 ```sh
 devenv up
 ```
 
-This should open devenv cli console where you can observe logs for CouchDB and Caddy (reverse proxy) processes.
-If you are running it locally, then you verify that [builtin UI](https://localhost:4895/_utils) is working and you can login.
+This should open devenv cli dashboard where one can observe logs for CouchDB and Caddy (reverse proxy) processes.
+One can verify the setup by reaching [builtin UI](https://localhost:4895/_utils).
 
-### Init CouchDB
+### Generate settings for `obsidian-livesync` plugin ⚙️
 
-Open another terminal and run:
-
-```sh
-./couchdb-init.sh
-```
-
-and verify that it ends with _CouchDB initialized successfully_ message.
-
-### Generate CouchDB settings for `obsidian-livesync` plugin
-
-Run
+Run:
 
 ```sh
 deno run -A --env-file=.env generate-settings.ts
 ```
 
-It should generate a long url for you. Copy it and go to obsidian. Install `obsidian-livesync` if don't have it yet, and use it in plugin. For new installation wizard should guide you and ask for it. For existing installation go to preferences, find the plugin settings, go to wizard 🧙‍♂️ tab and look for something like: _Connect with Setup URI_.
+It should generate a long url that contains all the configuration details. Copy it and go to obsidian.
+
+### Import settings in `obsidian-livesync` plugin 🚀
+
+Install `obsidian-livesync` if don't have it yet. For new installations a modal window should pop up and ask for providing config url. For existing `obsidian-livesync` installations go to:
+
+> preferences → LiveSync → 🧙‍♂️ tab
+
+and look for something like: _Connect with Setup URI_.
+
+When everything is set you can verify the logs in obsidian (a box icon on the left panel) and database entries in [CouchDB UI](https://localhost:4895/_utils). Well done, congratulations 🏆
