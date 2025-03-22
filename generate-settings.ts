@@ -7,12 +7,12 @@ const username = Deno.env.get("username");
 const password = Deno.env.get("password");
 const database = Deno.env.get("database");
 
-console.log(`${username}@${hostname}/${database}`);
+// console.log(`${username}@${hostname}/${database}`);
 
 const URIBASE = "obsidian://setuplivesync?settings=";
 async function main() {
     const conf = {
-        couchDB_URI: hostname,
+        couchDB_URI: `https://${hostname}:4895`,
         couchDB_USER: username,
         couchDB_PASSWORD: password,
         couchDB_DBNAME: database,

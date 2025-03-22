@@ -1,6 +1,6 @@
 # Self-hosted `obsidian-livesync` guide
 
-This project is a simplified guide and sample config for running local, self-hosted instance of couchdb, that can be used by [obsidian-livesync plugin](https://github.com/vrtmrz/obsidian-livesync). It uses [devenv](https://devenv.sh/), so the assumption is that you already have it installed.
+This project is a guide and sample config for running local, _dev_, self-hosted instance of couchdb, that can be used by [obsidian-livesync plugin](https://github.com/vrtmrz/obsidian-livesync). It uses [devenv](https://devenv.sh/), so the assumption is that you already have it installed.
 
 ### `Devenv` setup
 
@@ -18,11 +18,12 @@ Then run
 devenv up
 ```
 
-and verify that [builtin UI](http://localhost:5984/_utils) works.
+This should open devenv cli console where you can observe logs for CouchDB and Caddy (reverse proxy) processes.
+If you are running it locally, then you verify that [builtin UI](https://localhost:4895/_utils) is working and you can login.
 
 ### Init CouchDB
 
-Run
+Open another terminal and run:
 
 ```sh
 ./couchdb-init.sh
@@ -30,26 +31,12 @@ Run
 
 and verify that it ends with _CouchDB initialized successfully_ message.
 
-### Setup CouchDB
+### Generate CouchDB settings for `obsidian-livesync` plugin
 
 Run
 
 ```sh
-mv template.env.setup-db .env.setup-db
+deno run -A --env-file=.env generate-settings.ts
 ```
-
-and edit values in `.env.setup-db`.
-
-Then run
-
-```sh
-deno run -A --env-file=.env.setup-db setup-db.ts
-```
-
-> [!TIP] If you don't have deno installed, you can
->
-> - add it to devenv: `languages.deno.enable`, or
-> - use nix shell: `nix-shell -p deno`, or
-> - install it using your favorite package manager
 
 It should generate a long url for you. Copy it and go to obsidian. Install `obsidian-livesync` if don't have it yet, and use it in plugin. For new installation wizard should guide you and ask for it. For existing installation go to preferences, find the plugin settings, go to wizard 🧙‍♂️ tab and look for something like: _Connect with Setup URI_.
